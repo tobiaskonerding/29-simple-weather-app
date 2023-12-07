@@ -19,7 +19,12 @@ app.get("/", (req, res) => {
     res.render("index.ejs");
 });
 
-//calling weather api
-app.get("/get-weather", (req, res) => {
+//random calling of weather api
+app.get("/get-random-weather", (req, res) => {
+    res.render("index.ejs", { content })
+});
+
+//specific calling of weather api
+app.get("/get-location-weather", (req, res) => {
     res.render("index.ejs", { content })
 });
