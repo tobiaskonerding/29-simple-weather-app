@@ -13,11 +13,15 @@
 </head>
 <body>
     <h1>Get the weather for your location 🌤️👇🏼</h1>
-    <form id="myForm">
+    <form id="myForm" method="POST">
         <label for="locationWeather">Location:</label>
-        <input type="text" id="locationWeather" name="location">
+        <input type="text" id="locationWeather" name="location" placeholder="Your city">
         <input id="locationWeather" type="submit" value="Get weather for location" formaction="/get-location-weather">
         <input id="randomWeather" type="submit" value="Get random weather" formaction="/get-random-weather">
     </form>
+    <br>
+    <% if (locals.content) { %>
+        <%= content %>
+    <% } %>
 </body>
 </html>
