@@ -37,7 +37,9 @@ app.post("/get-random-weather", async (req, res) => {
 
     try {
         const response = await axios.request(options);
-        res.render("index.ejs", { content: JSON.stringify(response.data) });
+        console.log(response.data);
+        const iconLink = "https:" + response.data.current.condition.icon;
+        res.render("index.ejs", { content: response.data, icon: iconLink });
     } catch (error) {
         res.render("index.ejs", { content: `Error orrured:  ${error.message}.` })
     }
@@ -60,7 +62,9 @@ app.post("/get-location-weather", async (req, res) => {
 
     try {
         const response = await axios.request(options);
-        res.render("index.ejs", { content: JSON.stringify(response.data) });
+        console.log(response.data);
+        const iconLink = "https:" + response.data.current.condition.icon;
+        res.render("index.ejs", { content: response.data, icon: iconLink });
     } catch (error) {
         res.render("index.ejs", { content: `Error orrured:  ${error.message}.` })
     }
