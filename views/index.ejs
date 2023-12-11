@@ -12,25 +12,32 @@
     <title>My simple weather web app</title>
 </head>
 <body>
-    <h1>Get the weather for your location 🌤️👇🏼</h1>
-    <form id="myForm" method="POST">
-        <label for="locationWeather">Location:</label>
-        <input type="text" id="locationWeather" name="location" placeholder="Your city">
-        <input id="locationWeather" type="submit" value="Get weather for location" formaction="/get-location-weather">
-        <input id="randomWeather" type="submit" value="Get random weather" formaction="/get-random-weather">
-    </form>
-    <br>
-    <% if (locals.content) { %>
-        <h2>These are the wheather information</h2>
-        <h3>Place</h3>
-        <%= content.location.name %> in <%= content.location.region %>, <%= content.location.country %>
-        <p>Coordinates: <%= content.location.lat %>, <%= content.location.lon %></p>
-        <p>Local Time: <%- new Date(content.location.localtime_epoch * 1000).toLocaleTimeString("de-DE") %></p>
-        <h3>Weather conditions</h3>
-        <p>Overall: <%= content.current.condition.text %></p>
-        <p>Temp in Celsius: <%= content.current.temp_c %></p>
-        <img src=<%= icon %> alt="weather icon">
+    <div class="main-container">
+        <div class="border-box">
+        <h1>Get the weather for your location 🌤️👇🏼</h1>
+            <form id="myForm" method="POST">
+                <label for="locationWeather">Location:</label>
+                <input class="input-location" type="text" id="locationWeather" name="location" placeholder="Your city">
+                <br>
+                <input class="button-location" id="locationWeather" type="submit" value="Get weather for location" formaction="/get-location-weather">
+                <br>
+                <input class="button-random" id="randomWeather" type="submit" value="Get random weather instead" formaction="/get-random-weather">
+            </form>
+        </div>
 
-    <% } %>
+        <% if (locals.content) { %>
+        <div class="border-box">
+            <h2>These are the wheather information</h2>
+            <h3>Place</h3>
+            <%= content.location.name %> in <%= content.location.region %>, <%= content.location.country %>
+            <p>Coordinates: <%= content.location.lat %>, <%= content.location.lon %></p>
+            <p>Local Time: <%- new Date(content.location.localtime_epoch * 1000).toLocaleTimeString("de-DE") %></p>
+            <h3>Weather conditions</h3>
+            <p>Overall: <%= content.current.condition.text %></p>
+            <p>Temp in Celsius: <%= content.current.temp_c %></p>
+            <img src=<%= icon %> alt="weather icon">
+        </div>
+        <% } %>
+    </div>
 </body>
 </html>

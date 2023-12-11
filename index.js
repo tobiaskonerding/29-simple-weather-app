@@ -37,7 +37,7 @@ app.post("/get-random-weather", async (req, res) => {
 
     try {
         const response = await axios.request(options);
-        console.log(response.data);
+        /* console.log(response.data); */
         const iconLink = "https:" + response.data.current.condition.icon;
         res.render("index.ejs", { content: response.data, icon: iconLink });
     } catch (error) {
@@ -48,7 +48,7 @@ app.post("/get-random-weather", async (req, res) => {
 //specific calling of weather api
 app.post("/get-location-weather", async (req, res) => {
     const location = req.body;
-    console.log(location);
+    /* console.log(location); */
 
     const options = {
         method: 'GET',
@@ -62,7 +62,7 @@ app.post("/get-location-weather", async (req, res) => {
 
     try {
         const response = await axios.request(options);
-        console.log(response.data);
+        /* console.log(response.data); */
         const iconLink = "https:" + response.data.current.condition.icon;
         res.render("index.ejs", { content: response.data, icon: iconLink });
     } catch (error) {
