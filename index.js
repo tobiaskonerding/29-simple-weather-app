@@ -1,9 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
+import env from "dotenv";
 
 const port = 3000;
 const app = express();
+env.config();
 
 //middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,8 +32,8 @@ app.post("/get-random-weather", async (req, res) => {
     url: "https://weatherapi-com.p.rapidapi.com/current.json",
     params: { q: `${randomLatitude}, ${randomLongitute}` },
     headers: {
-      "X-RapidAPI-Key": "f39c5e0c43msh9c6f10dc71b2dc0p105540jsnc9817d7461f6",
-      "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+      "X-RapidAPI-Key": process.env.X_RAPIDAPI_KEY,
+      "X-RapidAPI-Host": process.env.X_RAPIDAPI_HOST,
     },
   };
 
