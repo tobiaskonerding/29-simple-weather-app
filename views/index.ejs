@@ -1,43 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
-    <title>My simple weather web app</title>
-</head>
-<body>
+<%- include('partials/header.ejs') %>
+
     <div class="main-container">
-        <div class="border-box">
-        <h1>Get the weather for your location 🌤️👇🏼</h1>
-            <form id="myForm" method="POST">
-                <label for="locationWeather">Location:</label>
-                <input class="input-location" type="text" id="locationWeather" name="location" placeholder="Your city">
-                <br>
-                <input class="button-location" id="locationWeather" type="submit" value="Get weather for location" formaction="/get-location-weather">
-                <br>
-                <input class="button-random" id="randomWeather" type="submit" value="Get random weather instead" formaction="/get-random-weather">
-            </form>
+        <div class="border-box box-left">
+            <h2>Get the weather for your location 🌤️👇🏼</h1>
+                <form id="myForm" method="POST">
+                    <label for="locationWeather">Location:</label>
+                    <input class="input-location" type="text" id="locationWeather" name="location"
+                        placeholder="Your city">
+                    <br>
+                    <input class="button-location" id="locationWeather" type="submit" value="Get weather for location"
+                        formaction="/get-location-weather">
+                    <br>
+                    <input class="button-random" id="randomWeather" type="submit" value="Get random weather instead"
+                        formaction="/get-random-weather">
+                </form>
         </div>
 
-        <% if (locals.content) { %>
-        <div class="border-box">
-            <h2>These are the wheather information</h2>
-            <h3>Place</h3>
-            <%= content.location.name %> in <%= content.location.region %>, <%= content.location.country %>
-            <p>Coordinates: <%= content.location.lat %>, <%= content.location.lon %></p>
-            <p>Local Time: <%- new Date(content.location.localtime_epoch * 1000).toLocaleTimeString("de-DE") %></p>
-            <h3>Weather conditions</h3>
-            <p>Overall: <%= content.current.condition.text %></p>
-            <p>Temp in Celsius: <%= content.current.temp_c %></p>
-            <img src=<%= icon %> alt="weather icon">
+        <div class="border-box box-right">
+            <% if (!locals.content) { %>
+                <h2>Please enter a city or call random information to see something</h2>
+
+                <% } else { %>
+                    <h2>These are the wheather information</h2>
+                    <div class="info-box">
+                        <div class="info-box-content">
+                            <h3>Place</h3>
+                            <% let data=locals.content %>
+                                <%= data.location.name %> in <%= data.location.region %>, <%= data.location.country %>
+                                            <p>Coordinates: <%= data.location.lat %>, <%= data.location.lon %>
+                                            </p>
+                                            <p>Local Time: <%- new Date(data.location.localtime_epoch *
+                                                    1000).toLocaleTimeString("de-DE") %></p>
+                        </div>
+                        <div class="info-box-content">
+                            <h3>Weather conditions</h3>
+                            <p>Overall: <%= data.current.condition.text %>
+                            </p>
+                            <p>Temp in Celsius: <%= data.current.temp_c %>
+                            </p>
+                            <img src=<%=icon %> alt="weather icon">
+                        </div>
+                    </div>
+
+                    <div style="width: 300px">
+                        <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0"
+                            marginwidth="0"
+                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=<%= data.location.name %>,<%= data.location.region %>,<%= data.location.country %>&amp;t=&amp;z=11&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a
+                                href="https://www.gps.ie/">gps vehicle tracker</a></iframe>
+                    </div>
+                    <% } %>
         </div>
-        <% } %>
     </div>
-</body>
-</html>
+
+    <%- include('partials/footer.ejs') %>
